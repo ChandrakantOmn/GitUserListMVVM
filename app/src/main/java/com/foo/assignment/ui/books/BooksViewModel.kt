@@ -10,9 +10,7 @@ import com.foo.assignment.ui.base.BaseViewModel
 import javax.inject.Inject
 
 
-/**
- * Created by srinivas on 2019-06-29.
- */
+
 class BooksViewModel @Inject constructor(
     private val apiRepository: ApiRepository
 ) : BaseViewModel() {

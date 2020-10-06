@@ -8,9 +8,7 @@ import org.junit.AfterClass
 import org.junit.BeforeClass
 import org.junit.Rule
 
-/**
- * Created by srinivas on 2019-07-02.
- */
+
 open class BaseTest {
 
     @Rule

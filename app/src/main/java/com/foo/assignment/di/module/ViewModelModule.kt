@@ -2,15 +2,13 @@ package com.foo.assignment.di.module
 
 import androidx.lifecycle.ViewModel
 import com.foo.assignment.di.ViewModelKey
-import com.foo.assignment.ui.detail.UserDetailViewModel
+import com.foo.assignment.ui.detail.BookDetailViewModel
 import com.foo.assignment.ui.books.BooksViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 
-/**
- * Created by srinivas on 2019-06-28.
- */
+
 @Module
 abstract class ViewModelModule {
     @Binds
@@ -20,6 +18,6 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(UserDetailViewModel::class)
-    abstract fun bindUserDetailViewModel(userDetailViewModel: UserDetailViewModel): ViewModel
+    @ViewModelKey(BookDetailViewModel::class)
+    abstract fun bindUserDetailViewModel(bookDetailViewModel: BookDetailViewModel): ViewModel
 }

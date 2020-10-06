@@ -13,9 +13,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
 
-/**
- * Created by srinivas on 2019-06-28.
- */
+
 
 @Module
 class NetworkModule {

@@ -5,9 +5,7 @@ import com.foo.assignment.ui.books.BooksActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
-/**
- * Created by srinivas on 2019-06-28.
- */
+
 
 @Module
 abstract class ActivityBindingModule {

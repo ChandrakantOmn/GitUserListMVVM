@@ -3,9 +3,7 @@ package com.foo.assignment.data.repository
 import androidx.lifecycle.LiveData
 import androidx.paging.PagedList
 
-/**
- * Created by srinivas on 2019-07-02.
- */
+
 
 class PagedListWrapper<T> constructor(
     private val pagedList: LiveData<PagedList<T>>,

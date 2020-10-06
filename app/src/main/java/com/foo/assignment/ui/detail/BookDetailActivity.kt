@@ -9,7 +9,7 @@ import com.foo.assignment.databinding.ActivityDetailBinding
 import com.foo.assignment.ui.base.BaseActivity
 
 
-class BookDetailActivity : BaseActivity<UserDetailViewModel, ActivityDetailBinding>(UserDetailViewModel::class.java) {
+class BookDetailActivity : BaseActivity<BookDetailViewModel, ActivityDetailBinding>(BookDetailViewModel::class.java) {
 
     companion object {
         const val USER: String = "USER"
@@ -22,7 +22,7 @@ class BookDetailActivity : BaseActivity<UserDetailViewModel, ActivityDetailBindi
         return R.layout.activity_detail
     }
 
-    override fun initViewModel(viewModel: UserDetailViewModel) {
+    override fun initViewModel(viewModel: BookDetailViewModel) {
         binding.item = item
         binding.executePendingBindings()
     }

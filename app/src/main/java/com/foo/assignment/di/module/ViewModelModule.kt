@@ -3,7 +3,7 @@ package com.foo.assignment.di.module
 import androidx.lifecycle.ViewModel
 import com.foo.assignment.di.ViewModelKey
 import com.foo.assignment.ui.detail.UserDetailViewModel
-import com.foo.assignment.ui.home.HomeViewModel
+import com.foo.assignment.ui.books.BooksViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -15,8 +15,8 @@ import dagger.multibindings.IntoMap
 abstract class ViewModelModule {
     @Binds
     @IntoMap
-    @ViewModelKey(HomeViewModel::class)
-    abstract fun bindHomeViewModel(homeViewModel: HomeViewModel): ViewModel
+    @ViewModelKey(BooksViewModel::class)
+    abstract fun bindHomeViewModel(homeViewModel: BooksViewModel): ViewModel
 
     @Binds
     @IntoMap

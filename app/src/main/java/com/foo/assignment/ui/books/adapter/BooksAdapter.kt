@@ -1,4 +1,4 @@
-package com.foo.assignment.ui.home.adapter
+package com.foo.assignment.ui.books.adapter
 
 import android.view.View
 import android.view.ViewGroup
@@ -6,30 +6,33 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.foo.assignment.R
-import com.foo.assignment.data.model.User
+import com.foo.assignment.data.model.BooksResponse
 import com.foo.assignment.data.repository.NetworkState
 
 
-class UserAdapter constructor(
+class BooksAdapter constructor(
     private var isGridView: Boolean,
     private val retryCallback: () -> Unit,
-    private val clickListener: (View, User) -> Unit
+    private val clickListener: (View, BooksResponse.Item) -> Unit
 ) :
-    PagedListAdapter<User, RecyclerView.ViewHolder>(UserItemDiffCallback) {
+    PagedListAdapter<BooksResponse.Item, RecyclerView.ViewHolder>(UserItemDiffCallback) {
 
     private var networkState: NetworkState? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            R.layout.item_user -> UserViewHolder.create(parent, clickListener, isGridView)
-            R.layout.item_network_state -> NetworkStateViewHolder.create(parent, retryCallback)
+            R.layout.item_user -> BookViewHolder.create(parent, clickListener, isGridView)
+            R.layout.item_network_state -> NetworkStateViewHolder.create(
+                parent,
+                retryCallback
+            )
             else -> throw IllegalArgumentException("unknown view type")
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (getItemViewType(position)) {
-            R.layout.item_user -> (holder as UserViewHolder).bindTo(getItem(position))
+            R.layout.item_user -> (holder as BookViewHolder).bindTo(getItem(position))
             R.layout.item_network_state -> (holder as NetworkStateViewHolder).bindTo(networkState)
         }
     }
@@ -76,12 +79,12 @@ class UserAdapter constructor(
     }
 
     companion object {
-        val UserItemDiffCallback = object : DiffUtil.ItemCallback<User>() {
-            override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
+        val UserItemDiffCallback = object : DiffUtil.ItemCallback<BooksResponse.Item>() {
+            override fun areItemsTheSame(oldItem: BooksResponse.Item, newItem: BooksResponse.Item): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
+            override fun areContentsTheSame(oldItem: BooksResponse.Item, newItem: BooksResponse.Item): Boolean {
                 return oldItem == newItem
             }
         }

@@ -3,24 +3,21 @@ package com.foo.assignment.data.repository
 import androidx.lifecycle.Transformations
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.foo.assignment.data.model.User
+import com.foo.assignment.data.model.BooksResponse
 import com.foo.assignment.data.remote.ApiServices
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-/**
- * Created by srinivas on 2019-06-28.
- */
 class ApiRepository @Inject constructor(private val apiServices: ApiServices) {
 
     private val compositeDisposable = CompositeDisposable()
 
     private val perPage: Int = 20
-    private lateinit var sourceFactory: UserListDataSourceFactory
+    private lateinit var sourceFactory: BookListDataSourceFactory
 
-    fun fetchUsers(): PagedListWrapper<User> {
+    fun fetBooks(): PagedListWrapper<BooksResponse.Item> {
 
-        sourceFactory = UserListDataSourceFactory(compositeDisposable, apiServices)
+        sourceFactory = BookListDataSourceFactory(compositeDisposable, apiServices)
 
         val config: PagedList.Config = PagedList.Config.Builder()
             .setPageSize(perPage)
@@ -33,10 +30,10 @@ class ApiRepository @Inject constructor(private val apiServices: ApiServices) {
 
         return PagedListWrapper(
             pagedList,
-            Transformations.switchMap<UserListDataSource, NetworkState>(
+            Transformations.switchMap<BookListDataSource, NetworkState>(
                 sourceFactory.usersDataSourceLiveData
             ) { it.networkState },
-            Transformations.switchMap<UserListDataSource, NetworkState>(
+            Transformations.switchMap<BookListDataSource, NetworkState>(
                 sourceFactory.usersDataSourceLiveData
             ) { it.initialLoad })
     }

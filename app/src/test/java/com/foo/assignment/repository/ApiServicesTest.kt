@@ -1,7 +1,6 @@
 package com.foo.assignment.repository
 
 import com.foo.assignment.BaseTest
-import com.foo.assignment.data.model.User
 import com.foo.assignment.data.remote.ApiServices
 import com.foo.assignment.whenever
 import io.reactivex.Single

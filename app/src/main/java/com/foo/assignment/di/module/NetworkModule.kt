@@ -51,7 +51,7 @@ class NetworkModule {
         @Named("base_retrofit")
         fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =
             Retrofit.Builder()
-                .baseUrl("https://api.github.com/")
+                .baseUrl("https://www.googleapis.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okHttpClient)

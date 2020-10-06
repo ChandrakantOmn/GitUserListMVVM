@@ -5,7 +5,7 @@
     <data>
         <variable
                 name="viewModel"
-                type="com.foo.assignment.ui.home.HomeViewModel"/>
+                type="com.foo.assignment.ui.books.BooksViewModel"/>
 
         <import type="android.view.View"/>
     </data>

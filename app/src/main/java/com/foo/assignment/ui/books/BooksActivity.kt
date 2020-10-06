@@ -1,4 +1,4 @@
-package com.foo.assignment.ui.home
+package com.foo.assignment.ui.books
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,22 +13,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.foo.assignment.R
-import com.foo.assignment.data.model.User
+import com.foo.assignment.data.model.BooksResponse
 import com.foo.assignment.data.repository.NetworkState
 import com.foo.assignment.data.repository.Status
 import com.foo.assignment.databinding.ActivityHomeBinding
 import com.foo.assignment.ui.base.BaseActivity
-import com.foo.assignment.ui.detail.UserDetailActivity
-import com.foo.assignment.ui.home.adapter.UserAdapter
+import com.foo.assignment.ui.detail.BookDetailActivity
+import com.foo.assignment.ui.books.adapter.BooksAdapter
 import kotlinx.android.synthetic.main.item_network_state.view.*
 
 
-class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>(HomeViewModel::class.java) {
+class BooksActivity : BaseActivity<BooksViewModel, ActivityHomeBinding>(BooksViewModel::class.java) {
 
-    private lateinit var userAdapter: UserAdapter
+    private lateinit var userAdapter: BooksAdapter
     private var isGridView: Boolean = false
 
-    override fun initViewModel(viewModel: HomeViewModel) {
+    override fun initViewModel(viewModel: BooksViewModel) {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
     }
@@ -40,7 +40,6 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>(HomeViewMo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setSupportActionBar(binding.toolbar)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         initAdapter()
         initSwipeToRefresh()
     }
@@ -72,13 +71,13 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>(HomeViewMo
         binding.usersRv.layoutManager =
             LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
-        userAdapter = UserAdapter(isGridView, {
+        userAdapter = BooksAdapter(isGridView, {
             viewModel.retry()
-        }) { view, user ->
+        }) { view, item ->
             run {
-                val intent = Intent(this, UserDetailActivity::class.java)
-                intent.putExtra(UserDetailActivity.USER, user)
-                intent.putExtra(UserDetailActivity.TRANSITION_NAME, ViewCompat.getTransitionName(view))
+                val intent = Intent(this, BookDetailActivity::class.java)
+                intent.putExtra(BookDetailActivity.USER, item)
+                intent.putExtra(BookDetailActivity.TRANSITION_NAME, ViewCompat.getTransitionName(view))
                 intent.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
 
                 val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
@@ -89,7 +88,7 @@ class HomeActivity : BaseActivity<HomeViewModel, ActivityHomeBinding>(HomeViewMo
             }
         }
         binding.usersRv.adapter = userAdapter
-        viewModel.getUserPagedList().observe(this, Observer<PagedList<User>> { userAdapter.submitList(it) })
+        viewModel.getBookPagedList().observe(this, Observer<PagedList<BooksResponse.Item>> { userAdapter.submitList(it) })
         viewModel.getNetworkState().observe(this, Observer<NetworkState> { userAdapter.setNetworkState(it) })
     }
 

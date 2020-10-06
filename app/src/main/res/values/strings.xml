@@ -1,10 +1,21 @@
 <resources>
-    <string name="app_name">GitUserListMVVM</string>
+    <string name="app_name">Book Store</string>
     <string name="position" translatable="false">position</string>
     <string name="retry">Retry</string>
 
-    <string name="string_repo_url">Repo Url : %s</string>
-    <string name="string_events_url">Events Url: %s</string>
+    <string name="string_subtitle">Sub-Title : %s</string>
+    <string name="string_author">Author: %s</string>
+    <string name="string_publisher">Publisher: %s</string>
+    <string name="string_published_date">Published Date: %s</string>
+    <string name="string_desc">Description: %s</string>
+    <string name="string_category">Category: %s</string>
+
+    <string name="string_country">Country: %s</string>
+    <string name="string_saleability">Saleability: %s</string>
+    <string name="string_list_price">ListPrice: %s</string>
+    <string name="string_retail_price">RetailPrice: %s</string>
+    <string name="string_offers">Offers: %s</string>
+    <string name="string_buy_link">BuyLink: %s</string>
     <string name="string_toggle_view">Toggle view</string>
 
 </resources>

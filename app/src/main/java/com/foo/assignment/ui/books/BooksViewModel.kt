@@ -1,8 +1,8 @@
-package com.foo.assignment.ui.home
+package com.foo.assignment.ui.books
 
 import androidx.lifecycle.LiveData
 import androidx.paging.PagedList
-import com.foo.assignment.data.model.User
+import com.foo.assignment.data.model.BooksResponse
 import com.foo.assignment.data.repository.ApiRepository
 import com.foo.assignment.data.repository.PagedListWrapper
 import com.foo.assignment.data.repository.NetworkState
@@ -13,11 +13,11 @@ import javax.inject.Inject
 /**
  * Created by srinivas on 2019-06-29.
  */
-class HomeViewModel @Inject constructor(
+class BooksViewModel @Inject constructor(
     private val apiRepository: ApiRepository
 ) : BaseViewModel() {
 
-    private var userPagedListWrapper: PagedListWrapper<User> = apiRepository.fetchUsers()
+    private var userPagedListWrapper: PagedListWrapper<BooksResponse.Item> = apiRepository.fetBooks()
 
     fun retry() {
         apiRepository.retry()
@@ -27,7 +27,7 @@ class HomeViewModel @Inject constructor(
         apiRepository.refresh()
     }
 
-    fun getUserPagedList(): LiveData<PagedList<User>> {
+    fun getBookPagedList(): LiveData<PagedList<BooksResponse.Item>> {
         return userPagedListWrapper.getPagedList()
     }
 

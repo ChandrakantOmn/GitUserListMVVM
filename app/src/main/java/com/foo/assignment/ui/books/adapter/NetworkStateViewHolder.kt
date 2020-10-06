@@ -1,4 +1,4 @@
-package com.foo.assignment.ui.home.adapter
+package com.foo.assignment.ui.books.adapter
 
 import android.view.LayoutInflater
 import android.view.View

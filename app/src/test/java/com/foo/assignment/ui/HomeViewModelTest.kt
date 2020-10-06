@@ -3,7 +3,7 @@ package com.foo.assignment.ui
 import com.foo.assignment.BaseTest
 import com.foo.assignment.data.remote.ApiServices
 import com.foo.assignment.data.repository.ApiRepository
-import com.foo.assignment.ui.home.HomeViewModel
+import com.foo.assignment.ui.books.BooksViewModel
 import com.foo.assignment.whenever
 import io.reactivex.Single
 import org.junit.Before
@@ -20,13 +20,13 @@ class HomeViewModelTest : BaseTest() {
 
     private lateinit var apiServices: ApiServices
     private lateinit var appRepository: ApiRepository
-    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var homeViewModel: BooksViewModel
 
     @Before
     fun setUp() {
         apiServices = Mockito.mock(ApiServices::class.java)
         appRepository = Mockito.mock(ApiRepository::class.java)
-        homeViewModel = HomeViewModel(appRepository)
+        homeViewModel = BooksViewModel(appRepository)
     }
 
 

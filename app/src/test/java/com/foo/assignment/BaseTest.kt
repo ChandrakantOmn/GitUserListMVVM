@@ -1,7 +1,6 @@
 package com.foo.assignment
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.foo.assignment.data.model.User
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers

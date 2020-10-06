@@ -2,7 +2,7 @@ package com.foo.assignment.data.repository
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.ItemKeyedDataSource
-import com.foo.assignment.data.model.User
+import com.foo.assignment.data.model.BooksResponse
 import com.foo.assignment.data.remote.ApiServices
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -10,13 +10,10 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Action
 import io.reactivex.schedulers.Schedulers
 
-/**
- * Created by srinivas on 2019-07-01.
- */
-class UserListDataSource(
+class BookListDataSource(
     private val apiServices: ApiServices,
     private val compositeDisposable: CompositeDisposable
-) : ItemKeyedDataSource<Long, User>() {
+) : ItemKeyedDataSource<Long, BooksResponse.Item>() {
 
 
     val networkState = MutableLiveData<NetworkState>()
@@ -39,18 +36,17 @@ class UserListDataSource(
         }
     }
 
-    override fun loadInitial(params: LoadInitialParams<Long>, callback: LoadInitialCallback<User>) {
+    override fun loadInitial(params: LoadInitialParams<Long>, callback: LoadInitialCallback<BooksResponse.Item>) {
         // update states.
         networkState.postValue(NetworkState.LOADING)
         initialLoad.postValue(NetworkState.LOADING)
 
-        //get the initial users from the api
-        compositeDisposable.add(apiServices.getUsers(0, params.requestedLoadSize).subscribe({ users ->
+        compositeDisposable.add(apiServices.getBooks("health", 20).subscribe({ users ->
             // clear retry since last request succeeded
             setRetry(null)
             networkState.postValue(NetworkState.LOADED)
             initialLoad.postValue(NetworkState.LOADED)
-            callback.onResult(users)
+            users.items?.let { callback.onResult(it) }
         }, { throwable ->
             // keep a Completable for future retry
             setRetry(Action { loadInitial(params, callback) })
@@ -61,23 +57,23 @@ class UserListDataSource(
         }))
     }
 
-    override fun loadAfter(params: LoadParams<Long>, callback: LoadCallback<User>) {
+    override fun loadAfter(params: LoadParams<Long>, callback: LoadCallback<BooksResponse.Item>) {
         networkState.postValue(NetworkState.LOADING)
-        compositeDisposable.add(apiServices.getUsers(params.key, params.requestedLoadSize).subscribe({ users ->
+        compositeDisposable.add(apiServices.getBooks("health", 0).subscribe({ users ->
             setRetry(null)
             networkState.postValue(NetworkState.LOADED)
-            callback.onResult(users)
+            users.items?.let { callback.onResult(it) }
         }, { throwable ->
             setRetry(Action { loadAfter(params, callback) })
             networkState.postValue(NetworkState.error(throwable.message))
         }))
     }
 
-    override fun getKey(item: User): Long {
-        return item.id
+    override fun getKey(item: BooksResponse.Item): Long {
+        return 20
     }
 
-    override fun loadBefore(params: LoadParams<Long>, callback: LoadCallback<User>) {
+    override fun loadBefore(params: LoadParams<Long>, callback: LoadCallback<BooksResponse.Item>) {
         // ignored
     }
 
